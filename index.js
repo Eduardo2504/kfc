@@ -1,13 +1,13 @@
 var mainState = {
     preload: function() {
-        this.game.load.image('player', 'assets/player.PNG');
-        this.game.load.image('wall', 'assets/wall.PNG');
+        this.game.load.image('player', 'assets/download2.PNG');
+        this.game.load.image('wall', 'assets/teacherface2.PNG');
         this.game.load.image('coin', 'assets/coin.PNG');
         this.game.load.image('enemy', 'assets/lava.PNG');
     },
     
     create: function() {
-        this.game.stage.backgroundColor = '#3598db';
+        this.game.stage.backgroundColor = '#000000';
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         game.world.enableBody = true;
         
@@ -25,7 +25,7 @@ var mainState = {
             'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
             '!         !                               x',
             '!                 o        o         o    x',
-            '!         o                     !         x',
+            '!                              !         x',
             '!                    x                    x',
             '!     o   !    x     x        o      o    x',
             'xxxxxxxxxxxxxxxx!!!!!xxxxxxxxxxxxxxxxxxxxxx',
@@ -58,7 +58,7 @@ var mainState = {
 
         this.game.physics.arcade.overlap(this.player, this.coins, this.takeCoin, null, this);
 
-        this.game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
+        this.game.physics.arcade.overlap(this.player, this.coins, this.restart, null, this);
         
         if(this.cursor.left.isDown)
             this.player.body.velocity.x = -200;
