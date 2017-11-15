@@ -13,22 +13,36 @@ var mainState = {
         
         this.cursor = this.game.input.keyboard.createCursorKeys();
         
-        this.player = this.game.add.sprite(70, 100, 'player');
+        this.player = this.game.add.sprite(460, 200, 'player');
         
-        this.player.body.gravity.y = 600;
+        this.player.body.allowGravity = false;
         
         this.walls = this.game.add.group();
         this.coins = this.game.add.group();
         this.enemies = this.game.add.group();
         
         var level = [
-            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-            '!         !                               x',
-            '!                 o        o         o    x',
-            '!         o                     !         x',
-            '!                    x                    x',
-            '!     o   !    x     x        o      o    x',
-            'xxxxxxxxxxxxxxxx!!!!!xxxxxxxxxxxxxxxxxxxxxx',
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x', 
+            '!                            x',
+            'x                            x',
+            '!                            x',
+            'x                            x',
+            '!                            x',
+            'x                            x',
+            '!                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         ];
         
         for (var i = 0; i < level.length; i++) {
@@ -61,9 +75,13 @@ var mainState = {
         this.game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
         
         if(this.cursor.left.isDown)
-            this.player.body.velocity.x = -200;
+            this.player.body.x += -5;
         else if (this.cursor.right.isDown)
-            this.player.body.velocity.x = 200;
+            this.player.body.x += 5;
+        else if(this.cursor.up.isDown)
+            this.player.body.y += -5;
+        else if (this.cursor.down.isDown)
+            this.player.body.y += 5;
         else
             this.player.body.velocity.x = 0;
         
