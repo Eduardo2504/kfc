@@ -1,10 +1,17 @@
 var mainState = {
     preload: function() {
+<<<<<<< HEAD
         this.game.load.image('player', 'cookedchicken.png');
         this.game.load.image('wall', 'assets/tree.png');
 //        this.game.load.image('coin', 'assets/coin.PNG');
 //        this.game.load.image('enemy', 'assets/lava.PNG');
         this.game.load.image('background','assets/background.png');
+=======
+        this.game.load.image('player', 'assets/chicken.png');
+        this.game.load.image('wall', 'assets/tree.PNG');
+        this.game.load.image('coin', 'assets//Car_Purple_Front.PNG');
+        this.game.load.image('enemy', 'assets/lava.PNG');
+>>>>>>> marcell
     },
     
     create: function() {
@@ -29,7 +36,12 @@ var mainState = {
             'x                            x',
             'x                            x',
             'x                            x',
+<<<<<<< HEAD
             'x                            x', 
+=======
+            'x                           x', 
+            '!                            x',
+>>>>>>> marcell
             'x                            x',
             'x                            x',
             'x                            x',
@@ -49,7 +61,7 @@ var mainState = {
             'x                            x',
             'x                            x',
             'x                            x',
-            'x                            x',
+            'x                   0        x',
             'x                            x',
             'x                            x',
             'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
