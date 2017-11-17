@@ -1,8 +1,8 @@
 var mainState = {
     preload: function() {
-        this.game.load.image('player', 'assets/download2.PNG');
-        this.game.load.image('wall', 'assets/teacherface2.PNG');
-        this.game.load.image('coin', 'assets/coin.PNG');
+        this.game.load.image('player', 'assets/chicken.png');
+        this.game.load.image('wall', 'assets/tree.PNG');
+        this.game.load.image('coin', 'assets//Car_Purple_Front.PNG');
         this.game.load.image('enemy', 'assets/lava.PNG');
     },
     
@@ -26,7 +26,7 @@ var mainState = {
             'x                            x',
             'x                            x',
             'x                            x',
-            'x                            x', 
+            'x                           x', 
             '!                            x',
             'x                            x',
             '!                            x',
@@ -39,7 +39,7 @@ var mainState = {
             'x                            x',
             'x                            x',
             'x                            x',
-            'x                            x',
+            'x                   0        x',
             'x                            x',
             'x                            x',
             'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
