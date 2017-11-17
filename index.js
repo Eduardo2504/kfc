@@ -3,7 +3,7 @@ var mainState = {
         this.game.load.image('player', 'cookedchicken.png');
         this.game.load.image('wall', 'assets/tree.png');
 //        this.game.load.image('coin', 'assets/coin.PNG');
-//        this.game.load.image('enemy', 'assets/lava.PNG');
+       this.game.load.image('enemy', 'assets/car.png');
         this.game.load.image('background','assets/background.png');
     },
     
@@ -21,7 +21,7 @@ var mainState = {
     
         this.walls = this.game.add.group();
 //        this.coins = this.game.add.group();
-//        this.enemies = this.game.add.group();
+        this.enemies = this.game.add.group();
 //        this.background = this.game.add.group('background.png');
         
         var level = [
