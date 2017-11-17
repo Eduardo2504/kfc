@@ -1,25 +1,28 @@
 var mainState = {
     preload: function() {
-        this.game.load.image('player', 'assets/player.PNG');
-        this.game.load.image('wall', 'assets/wall.PNG');
-        this.game.load.image('coin', 'assets/coin.PNG');
-        this.game.load.image('enemy', 'assets/lava.PNG');
+        this.game.load.image('player', 'cookedchicken.png');
+        this.game.load.image('wall', 'trees.png');
+//        this.game.load.image('coin', 'assets/coin.PNG');
+//        this.game.load.image('enemy', 'assets/lava.PNG');
+        this.game.load.image('background','assets/background.png');
     },
     
     create: function() {
-        this.game.stage.backgroundColor = '#3598db';
+        this.game.add.tileSprite(0, 0, 650, 600, 'background');
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         game.world.enableBody = true;
         
         this.cursor = this.game.input.keyboard.createCursorKeys();
         
-        this.player = this.game.add.sprite(460, 200, 'player');
-        
+        this.player = this.game.add.sprite(350, 550, 'player');
         this.player.body.allowGravity = false;
-        
+        //this.player.body.immovable = false;
+        this.player.body.collideWorldBounds=true;
+    
         this.walls = this.game.add.group();
-        this.coins = this.game.add.group();
-        this.enemies = this.game.add.group();
+//        this.coins = this.game.add.group();
+//        this.enemies = this.game.add.group();
+//        this.background = this.game.add.group('background.png');
         
         var level = [
             'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -27,13 +30,20 @@ var mainState = {
             'x                            x',
             'x                            x',
             'x                            x', 
-            '!                            x',
             'x                            x',
-            '!                            x',
             'x                            x',
-            '!                            x',
             'x                            x',
-            '!                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
+            'x                            x',
             'x                            x',
             'x                            x',
             'x                            x',
@@ -49,9 +59,14 @@ var mainState = {
             for (var j = 0; j < level[i].length; j++) {
 
                 if (level[i][j] == 'x') {
+                    //debugger;
                     var wall = game.add.sprite(30+20*j, 30+20*i, 'wall');
-                    this.walls.add(wall);
                     wall.body.immovable = true; 
+                    this.walls.add(wall);
+                    
+                  //  wall.body.moves=false;
+                    
+                    
                 }
 
                 else if (level[i][j] == 'o') {
@@ -66,27 +81,32 @@ var mainState = {
             }
         }
     },
-    
+    collide: function(){
+        debugger;
+    },
     update: function() {
-        this.game.physics.arcade.collide(this.player, this.walls);
+       // debugger;
+        this.game.physics.arcade.collide(this.player, this.walls,this.collide);
 
         this.game.physics.arcade.overlap(this.player, this.coins, this.takeCoin, null, this);
 
         this.game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
         
         if(this.cursor.left.isDown)
-            this.player.body.x += -5;
+            this.player.body.velocity.x += -10;
         else if (this.cursor.right.isDown)
-            this.player.body.x += 5;
+            this.player.body.velocity.x += 10;
         else if(this.cursor.up.isDown)
-            this.player.body.y += -5;
+            this.player.body.velocity.y += -10;
         else if (this.cursor.down.isDown)
-            this.player.body.y += 5;
-        else
+            this.player.body.velocity.y += 10;
+        else{
             this.player.body.velocity.x = 0;
+        this.player.body.velocity.y = 0;
+        }
         
         if(this.cursor.up.isDown && this.player.body.touching.down)
-            this.player.body.velocity.y = -250;
+            this.player.body.velocity.y = -200;
     },
     
     takeCoin: function(player, coin){
