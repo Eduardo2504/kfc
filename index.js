@@ -1,20 +1,20 @@
 var mainState = {
     preload: function() {
         this.game.load.image('player', 'cookedchicken.png');
-        this.game.load.image('wall', 'trees.png');
+        this.game.load.image('wall', 'assets/tree.png');
 //        this.game.load.image('coin', 'assets/coin.PNG');
 //        this.game.load.image('enemy', 'assets/lava.PNG');
         this.game.load.image('background','assets/background.png');
     },
     
     create: function() {
-        this.game.add.tileSprite(0, 0, 650, 600, 'background');
+        this.game.add.tileSprite(0, 0, 550, 600, 'background');
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         game.world.enableBody = true;
         
         this.cursor = this.game.input.keyboard.createCursorKeys();
         
-        this.player = this.game.add.sprite(350, 550, 'player');
+        this.player = this.game.add.sprite(250, 520, 'player');
         this.player.body.allowGravity = false;
         //this.player.body.immovable = false;
         this.player.body.collideWorldBounds=true;
@@ -60,9 +60,9 @@ var mainState = {
 
                 if (level[i][j] == 'x') {
                     //debugger;
-                    var wall = game.add.sprite(30+20*j, 30+20*i, 'wall');
-                    wall.body.immovable = true; 
-                    this.walls.add(wall);
+                    //var wall = game.add.sprite(17.6*j, 20*i, 'wall');
+                    //wall.body.immovable = true; 
+                  //  this.walls.add(wall);
                     
                   //  wall.body.moves=false;
                     
