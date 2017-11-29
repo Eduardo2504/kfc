@@ -18,7 +18,7 @@ var mainState = {
         {
             for (var x = 0; x < 4; x++)
             {
-                var alien = this.aliens.create(x * 120, y * 90, 'coin');
+                var alien = this.aliens.create(x * 120, y * 90, 'enemy');
                 alien.anchor.setTo(0.5, 0.5);
                 alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
                 alien.play('fly');
