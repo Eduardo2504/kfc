@@ -9,23 +9,54 @@ var mainState = {
         this.game.load.image('coin', 'assets//Car_Purple_Front.PNG');
         this.game.load.image('enemy', 'assets/lava.PNG');
     },
+   collisionHandler:function (bullet, alien) {
+
+    /*  When a bullet hits an alien we kill them both
+    bullet.kill();
+    alien.kill();
+
+    //  Increase the score
+    score += 20;
+    scoreText.text = scoreString + score;
+
+    //  And create an explosion :)
+    var explosion = explosions.getFirstExists(false);
+    explosion.reset(alien.body.x, alien.body.y);
+    explosion.play('kaboom', 30, false, true);
+
+    if (aliens.countLiving() == 0)
+    {
+        score += 1000;
+        scoreText.text = scoreString + score;
+
+        enemyBullets.callAll('kill',this);
+        stateText.text = " You Won, \n Click to restart";
+        stateText.visible = true;
+
+        //the "click to restart" handler
+        game.input.onTap.addOnce(restart,this);
+    }
+*/
+},
     createAliens: function () {
 
         for (var y = 0; y < 4; y++)
         {
-            for (var x = 0; x < 10; x++)
+            for (var x = 0; x < 4; x++)
             {
-                var alien = this.aliens.create(x * 48, y * 50, 'invader');
-                alien.anchor.setTo(0.5, 0.5);
+                var alien = this.aliens.create(x * 30, y * 80, 'coin');
+                alien.anchor.setTo(1.5, 1.5);
                 alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
                 alien.play('fly');
                 alien.body.moves = false;
+                this.game.world.wrap(alien,0,true);
             }
         }
 
         this.aliens.x = 10;
         this.aliens.y = 50;
-           var tween = this.game.add.tween(this.aliens).to( { x: 200 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+        
+           var tween = this.game.add.tween(this.aliens).to( { x: 650 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
     //  When the tween loops it calls descend
     tween.onLoop.add(descend, this);
@@ -125,13 +156,13 @@ var mainState = {
         this.game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
         
         if(this.cursor.left.isDown)
-            this.player.body.velocity.x += -10;
+            this.player.body.velocity.x += -15;
         else if (this.cursor.right.isDown)
-            this.player.body.velocity.x += 10;
+            this.player.body.velocity.x += 15;
         else if(this.cursor.up.isDown)
-            this.player.body.velocity.y += -10;
+            this.player.body.velocity.y += -15;
         else if (this.cursor.down.isDown)
-            this.player.body.velocity.y += 10;
+            this.player.body.velocity.y += 15;
         else{
             this.player.body.velocity.x = 0;
         this.player.body.velocity.y = 0;
@@ -139,6 +170,7 @@ var mainState = {
         
         if(this.cursor.up.isDown && this.player.body.touching.down)
             this.player.body.velocity.y = -200;
+        //this.game.world.wrap(this.aliens, 0);
     },
     
     takeCoin: function(player, coin){
