@@ -3,11 +3,14 @@ var mainState = {
 
         this.game.load.image('player', 'cookedchicken.png');
         this.game.load.image('wall', 'assets/tree.png');
-//        this.game.load.image('coin', 'assets/coin.PNG');
+        this.game.load.image('enemy', 'assets/redcar.png');
         this.game.load.image('background','assets/background.png');
-        this.game.load.image('wall', 'assets/tree.PNG');
-        this.game.load.image('coin', 'assets//Car_Purple_Front.PNG');
-        this.game.load.image('enemy', 'assets/lava.PNG');
+        this.game.load.image('player', 'assets/chicken.png');
+
+       this.game.load.image('coin', 'assets/coin.PNG');
+        this.game.load.image('background','assets/background.png');
+
+
     },
    collisionHandler:function (bullet, alien) {
 
@@ -44,8 +47,9 @@ var mainState = {
         {
             for (var x = 0; x < 4; x++)
             {
-                var alien = this.aliens.create(x * 30, y * 80, 'coin');
-                alien.anchor.setTo(1.5, 1.5);
+
+                var alien = this.aliens.create(x * 120, y * 90, 'enemy');
+                alien.anchor.setTo(0.5, 0.5);
                 alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
                 alien.play('fly');
                 alien.body.moves = false;
@@ -55,7 +59,7 @@ var mainState = {
 
         this.aliens.x = 10;
         this.aliens.y = 50;
-        
+
            var tween = this.game.add.tween(this.aliens).to( { x: 650 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
     //  When the tween loops it calls descend
@@ -91,8 +95,8 @@ var mainState = {
             'x                            x',
             'x                            x',
             'x                            x', 
-            'x                  o         x', 
-            '!                            x',
+            'x                            x', 
+            'x                            x',
             'x                            x',
             'x                            x',
             'x                            x',
