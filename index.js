@@ -12,7 +12,7 @@ var mainState = {
 
 
     },
-   collisionHandler:function (bullet, alien) {
+   collisionHandler:function (bullet, cars) {
 
     /*  When a bullet hits an alien we kill them both
     bullet.kill();
@@ -41,35 +41,41 @@ var mainState = {
     }
 */
 },
-    createAliens: function () {
+    createCars: function () {
 
-        for (var y = 0; y < 4; y++)
+        for (var y = 0; y < 2; y++)
         {
-            for (var x = 0; x < 4; x++)
+            for (var x = 0; x < 3; x++)
             {
 
-                var alien = this.aliens.create(x * 120, y * 90, 'enemy');
-                alien.anchor.setTo(0.5, 0.5);
-                alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
-                alien.play('fly');
-                alien.body.moves = false;
-                this.game.world.wrap(alien,0,true);
+                var car = this.cars.create(x * 120, y * 90, 'enemy');
+               // this.game.add.sprite()
+                car.anchor.setTo(0.5, 0.5);
+               // cars.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
+               // car.play('fly');
+                //cars.body.moves = false;
+                car.body.velocity.x = 200;
+                car.body.x = 100;
+                car.body.y = 100;
+                
             }
         }
 
-        this.aliens.x = 10;
-        this.aliens.y = 50;
+        this.cars.x = 10;
+        this.cars.y = 50;
 
-           var tween = this.game.add.tween(this.aliens).to( { x: 650 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, false);
+       //    var tween = this.game.add.tween(this.cars).to( { x: 650 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
+        
     //  When the tween loops it calls descend
-    tween.onLoop.add(descend, this);
+    //tween.onLoop.add(descend, this);
     },
     
     create: function() {
         this.game.add.tileSprite(0, 0, 550, 600, 'background');
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         game.world.enableBody = true;
+        this.game.world.setBounds(0,0,650,650);
         
         this.cursor = this.game.input.keyboard.createCursorKeys();
         
@@ -83,9 +89,9 @@ var mainState = {
         this.enemies = this.game.add.group();
 //        this.background = this.game.add.group('background.png');
         
-        this.aliens = game.add.group();
-        this.aliens.enableBody = true;
-        this.aliens.physicsBodyType = Phaser.Physics.ARCADE;
+        this.cars = game.add.group();
+        this.cars.enableBody = true;
+        this.cars.physicsBodyType = Phaser.Physics.ARCADE;
 
        
         
@@ -116,12 +122,12 @@ var mainState = {
             'x                            x',
             'x                            x',
             'x                            x',
-            'x                   !        x',
+            'x                            x',
             'x                            x',
             'x                            x',
             'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         ];
-         this.createAliens();
+         this.createCars();
         for (var i = 0; i < level.length; i++) {
             for (var j = 0; j < level[i].length; j++) {
 
@@ -157,7 +163,7 @@ var mainState = {
 
         this.game.physics.arcade.overlap(this.player, this.coins, this.takeCoin, null, this);
 
-        this.game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
+        this.game.physics.arcade.overlap(this.player, this.cars, this.restart, null, this);
         
         if(this.cursor.left.isDown)
             this.player.body.velocity.x += -15;
@@ -175,6 +181,11 @@ var mainState = {
         if(this.cursor.up.isDown && this.player.body.touching.down)
             this.player.body.velocity.y = -200;
         //this.game.world.wrap(this.aliens, 0);
+//        this.game.world.wrap(this.cars,0,true);
+        console.log(this.cars);
+        this.cars.forEachExists(function(car) {
+          this.game.world.wrap(car, 0, true, true, true)
+        })
     },
     
     takeCoin: function(player, coin){
