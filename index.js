@@ -1,7 +1,7 @@
 var mainState = {
     preload: function() {
 
-        this.game.load.image('player', 'cookedchicken.png');
+        this.game.load.image('player', 'assets/hei hei.png');
         this.game.load.image('wall', 'assets/tree.png');
         this.game.load.image('enemy', 'assets/redcar.png');
         this.game.load.image('background','assets/background.png');
@@ -28,7 +28,7 @@ var mainState = {
 
         this.aliens.x = 10;
         this.aliens.y = 50;
-           var tween = this.game.add.tween(this.aliens).to( { x: 650 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, false);
+           var tween = this.game.add.tween(this.aliens).to( { x: 610 }, 7000, Phaser.Easing.Linear.None, true, 0, 1000, false);
 
     //  When the tween loops it calls descend
     tween.onLoop.add(descend, this);
