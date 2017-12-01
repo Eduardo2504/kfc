@@ -2,85 +2,53 @@ var mainState = {
     preload: function() {
 
         this.game.load.image('player', 'cookedchicken.png');
-        this.game.load.image('wall', 'assets/tree.png');
         this.game.load.image('enemy', 'assets/redcar.png');
         this.game.load.image('background','assets/background.png');
-        this.game.load.image('player', 'assets/chicken.png');
-
-       this.game.load.image('coin', 'assets/coin.PNG');
-        this.game.load.image('background','assets/background.png');
+        this.game.load.image('coin', 'assets/coin.PNG');
 
 
     },
-   collisionHandler:function (bullet, cars) {
-
-    /*  When a bullet hits an alien we kill them both
-    bullet.kill();
-    alien.kill();
-
-    //  Increase the score
-    score += 20;
-    scoreText.text = scoreString + score;
-
-    //  And create an explosion :)
-    var explosion = explosions.getFirstExists(false);
-    explosion.reset(alien.body.x, alien.body.y);
-    explosion.play('kaboom', 30, false, true);
-
-    if (aliens.countLiving() == 0)
-    {
-        score += 1000;
-        scoreText.text = scoreString + score;
-
-        enemyBullets.callAll('kill',this);
-        stateText.text = " You Won, \n Click to restart";
-        stateText.visible = true;
-
-        //the "click to restart" handler
-        game.input.onTap.addOnce(restart,this);
-    }
-*/
-},
     createCars: function () {
-
-        for (var y = 0; y < 2; y++)
+  
+        for (var y = 0; y < 4; y++)
         {
+            var max=100;
+            var min=0;
+            var newx = 0
+
             for (var x = 0; x < 3; x++)
             {
-
-                var car = this.cars.create(x * 120, y * 90, 'enemy');
+                 if(Math.random()>0.4) {
+                newx += 110 + ( Math.floor(Math.random() * (max - min + 1)) + min);
+                var car = this.cars.create(newx, y * 110, 'enemy');
+                
                // this.game.add.sprite()
                 car.anchor.setTo(0.5, 0.5);
                // cars.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
                // car.play('fly');
                 //cars.body.moves = false;
                 car.body.velocity.x = 200;
-                car.body.x = 100;
-                car.body.y = 100;
+                //car.body.x = 100;
+               // car.body.y = 500;
+                 }
                 
             }
         }
 
-        this.cars.x = 10;
-        this.cars.y = 50;
-
-       //    var tween = this.game.add.tween(this.cars).to( { x: 650 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, false);
-
-        
-    //  When the tween loops it calls descend
-    //tween.onLoop.add(descend, this);
+       // this.cars.x = 100;
+        this.cars.y = 130;
     },
     
     create: function() {
         this.game.add.tileSprite(0, 0, 550, 600, 'background');
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         game.world.enableBody = true;
-        this.game.world.setBounds(0,0,650,650);
+        this.game.world.setBounds(0,0,550,600);
         
         this.cursor = this.game.input.keyboard.createCursorKeys();
         
         this.player = this.game.add.sprite(250, 520, 'player');
-        this.player.body.allowGravity = false;
+        this.player.body.allowGravity =true;
         //this.player.body.immovable = false;
         this.player.body.collideWorldBounds=true;
     
