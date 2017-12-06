@@ -4,8 +4,8 @@ var mainState = {
         this.game.load.image('player', 'cookedchicken.png');
         this.game.load.image('enemy', 'assets/redcar.png');
         this.game.load.image('background','assets/background.png');
-        this.game.load.image('coin', 'assets/coin.PNG');
-
+        this.game.load.image('coin', 'bucket.png');
+ 
 
     },
     createCars: function () {
@@ -18,10 +18,10 @@ var mainState = {
 
             for (var x = 0; x < 3; x++)
             {
-                 if(Math.random()>0.4) {
+                 if(Math.random()>0.3) {
                 newx += 110 + ( Math.floor(Math.random() * (max - min + 1)) + min);
                 var car = this.cars.create(newx, y * 110, 'enemy');
-                
+               
                // this.game.add.sprite()
                 car.anchor.setTo(0.5, 0.5);
                // cars.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
@@ -53,19 +53,21 @@ var mainState = {
         this.player.body.collideWorldBounds=true;
     
         this.walls = this.game.add.group();
-//        this.coins = this.game.add.group();
+        this.coins = this.game.add.group();
         this.enemies = this.game.add.group();
 //        this.background = this.game.add.group('background.png');
         
         this.cars = game.add.group();
         this.cars.enableBody = true;
         this.cars.physicsBodyType = Phaser.Physics.ARCADE;
+        
 
-       
+       var text;
+    
         
         var level = [
             'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-            'x                            x',
+            'x          o                 x',
             'x                            x',
             'x                            x',
             'x                            x', 
@@ -111,7 +113,7 @@ var mainState = {
                 }
 
                 else if (level[i][j] == 'o') {
-                    var coin = game.add.sprite(30+20*j, 30+20*i, 'coin');
+                    var coin = game.add.sprite(20+20*j, 10+10*i, 'coin');
                     this.coins.add(coin);
                 }
 
@@ -134,13 +136,13 @@ var mainState = {
         this.game.physics.arcade.overlap(this.player, this.cars, this.restart, null, this);
         
         if(this.cursor.left.isDown)
-            this.player.body.velocity.x += -15;
+            this.player.body.velocity.x += -20;
         else if (this.cursor.right.isDown)
-            this.player.body.velocity.x += 15;
+            this.player.body.velocity.x += 20;
         else if(this.cursor.up.isDown)
-            this.player.body.velocity.y += -15;
+            this.player.body.velocity.y += -20;
         else if (this.cursor.down.isDown)
-            this.player.body.velocity.y += 15;
+            this.player.body.velocity.y += 20;
         else{
             this.player.body.velocity.x = 0;
         this.player.body.velocity.y = 0;
@@ -158,6 +160,9 @@ var mainState = {
     
     takeCoin: function(player, coin){
         coin.kill();
+        alert("You win!");
+        game.state.start('main');
+        
     },
 
     restart: function() {
